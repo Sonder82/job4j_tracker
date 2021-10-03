@@ -54,6 +54,7 @@ public class Tracker {
         }
         return rsl;
     }
+
     public boolean replace(int id, Item item) {
         int index = indexOf(id);
         if (index != -1) {
@@ -62,4 +63,18 @@ public class Tracker {
         }
         return index != -1;
     }
+
+    public boolean delete(int id) {
+        int index = indexOf(id);
+        if (index != -1) {
+            int start = index + 1;
+            int distPos = index;
+            int length = size - index - 1;
+            items[size - 1] = null;
+            size--;
+            System.arraycopy(items, start, items, distPos, length);
+        }
+
+        return index != -1;
     }
+}
