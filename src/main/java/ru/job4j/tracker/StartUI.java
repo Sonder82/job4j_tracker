@@ -1,6 +1,5 @@
 package ru.job4j.tracker;
 
-import java.sql.SQLOutput;
 import java.util.Scanner;
 
  public class StartUI {
