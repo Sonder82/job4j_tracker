@@ -1,11 +1,12 @@
 package ru.job4j.tracker;
 
 public class StartUI {
+
     public void init(Input input, Tracker tracker) {
         boolean run = true;
         while (run) {
             showMenu();
-            int select = Integer.parseInt(input.askStr("Select: "));
+            int select = input.askInt("Select: ");
             if (select == 0) {
                 System.out.println("=== Create a new Item ====");
                 String name = input.askStr("Enter name: ");
@@ -24,7 +25,7 @@ public class StartUI {
                 }
             } else if (select == 2) {
                 System.out.println("=== Edit item ====");
-                int id = Integer.parseInt(input.askStr("Enter id: "));
+                int id = input.askInt("Enter id: ");
                 String name = input.askStr("Enter name: ");
                 Item item = new Item(name);
                 if (tracker.replace(id, item)) {
@@ -34,7 +35,7 @@ public class StartUI {
                 }
             } else if (select == 3) {
                 System.out.println("=== Delete item ====");
-                int id = Integer.parseInt(input.askStr("Enter id: "));
+                int id = input.askInt("Enter id: ");
                 if (tracker.delete(id)) {
                     System.out.println("Заявка удалена успешно.");
                 } else {
@@ -42,7 +43,7 @@ public class StartUI {
                 }
             } else if (select == 4) {
                 System.out.println("=== Find item by id ====");
-                int id = Integer.parseInt(input.askStr("Enter id: "));
+                int id = input.askInt("Enter id: ");
                 Item item = tracker.findById(id);
                 if (item != null) {
                     System.out.println(item);
@@ -51,7 +52,6 @@ public class StartUI {
                 }
             } else if (select == 5) {
                 System.out.println("=== Find items by name ====");
-                System.out.print("Enter name: ");
                 String name = input.askStr("Enter name: ");
                 Item[] items = tracker.findByName(name);
                 if (items.length > 0) {
