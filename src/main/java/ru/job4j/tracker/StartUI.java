@@ -31,6 +31,7 @@ package ru.job4j.tracker;
                     new FindByNameAction(),
                     new ExitAction()
             };
+
             new StartUI().init(input, tracker, actions);
         }
     }
