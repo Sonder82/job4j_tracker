@@ -72,7 +72,7 @@ public class StartUITest {
         Tracker tracker = new Tracker();
         Item one = tracker.add(new Item("test1"));
         Input in = new StubInput(
-                new String[]{"0", String.valueOf(one.getId()), "1"}
+                new String[]{"0", "1"}
         );
         UserAction[] actions = new UserAction[]{
                 new ShowAllAction(out),
@@ -127,22 +127,22 @@ public class StartUITest {
         Tracker tracker = new Tracker();
         Item one = tracker.add(new Item("test1"));
         Input in = new StubInput(
-                new String[]{"0", "1"}
+                new String[]{"0",String.valueOf(one.getName()), "1"}
         );
         UserAction[] actions = new UserAction[]{
-                new ShowAllAction(out),
+                new FindByNameAction(out),
                 new ExitAction(out)
         };
         new StartUI(out).init(in, tracker, actions);
         String ln = System.lineSeparator();
         assertThat(out.toString(), is(
                 "Menu:" + ln
-                        + "0. === Show all items ===" + ln
+                        + "0. === Find item by name ===" + ln
                         + "1. ===Exit===" + ln
-                        + "=== Show all items ===" + ln
+                        + "=== Find item by name ===" + ln
                         + one + ln
                         + "Menu:" + ln
-                        + "0. === Show all items ===" + ln
+                        + "0. === Find item by name ===" + ln
                         + "1. ===Exit===" + ln
                         + "=== Exit Program ===" + ln
         ));
