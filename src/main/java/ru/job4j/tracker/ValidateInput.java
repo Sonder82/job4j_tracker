@@ -22,7 +22,7 @@ public  String askStr(String question) {
                 value = in.askInt(question);
                 invalid = false;
             } catch (NumberFormatException nfe) {
-                out.println("Please enter validate data again.");
+                out.println("Please enter validate data again");
             }
         } while (invalid);
         return value;
