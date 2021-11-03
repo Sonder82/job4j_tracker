@@ -30,13 +30,12 @@ public  String askStr(String question) {
         boolean invalid = true;
         int value = -1;
         do {
-            String rsl = askStr(question);
-            if (!isNumber(rsl)) {
-                System.out.println("Please enter validate data again.");
-                continue;
+            try {
+                value = in.askInt(question);
+                invalid = false;
+            } catch (NumberFormatException nfe) {
+                out.println("Please enter validate data again.");
             }
-            value = Integer.parseInt(rsl);
-            invalid = false;
         } while (invalid);
         return value;
     }
