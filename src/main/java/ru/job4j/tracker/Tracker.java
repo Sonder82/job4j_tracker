@@ -39,7 +39,7 @@ public class Tracker {
                 rsl = index;
                 break;
             }
-       }
+        }
         return rsl;
     }
 
@@ -54,7 +54,7 @@ public class Tracker {
     }
 
     public boolean delete(int id) {
-       int index = indexOf(id);
+        int index = indexOf(id);
         boolean rsl = id != -1;
         if (rsl) {
             items.remove(index);
