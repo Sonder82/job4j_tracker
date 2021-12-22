@@ -2,7 +2,10 @@ package ru.job4j.tracker;
 
 import org.junit.Test;
 
-import static org.hamcrest.Matchers.is;
+
+import java.util.List;
+
+import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.core.IsNull.nullValue;
 
@@ -24,7 +27,7 @@ public class TrackerTest {
         Item second = new Item("Second");
         tracker.add(first);
         tracker.add(second);
-        Item result = tracker.findAll()[0];
+        Item result = tracker.findAll().get(0);
         assertThat(result.getName(), is(first.getName()));
     }
 
@@ -38,8 +41,8 @@ public class TrackerTest {
         tracker.add(new Item("First"));
         tracker.add(new Item("Second"));
         tracker.add(new Item("First"));
-        Item[] result = tracker.findByName(first.getName());
-        assertThat(result.length, is(3));
+        List<Item> result = tracker.findByName(first.getName());
+        assertThat(result.size(), is(3));
     }
 
     @Test
@@ -52,8 +55,8 @@ public class TrackerTest {
         tracker.add(new Item("First"));
         tracker.add(new Item("Second"));
         tracker.add(new Item("First"));
-        Item[] result = tracker.findByName(second.getName());
-        assertThat(result[1].getName(), is(second.getName()));
+        List<Item> result = tracker.findByName(second.getName());
+        assertThat(result.get(1).getName(), is(second.getName()));
     }
 
     @Test
@@ -66,13 +69,14 @@ public class TrackerTest {
         Item bugWithDesc = new Item();
         bugWithDesc.setName("Bug with description");
         tracker.replace(id, bugWithDesc);
-        assertThat(tracker.findById(id).getName(), is("Bug with description"));
+        List<Item> result = tracker.findByName(bugWithDesc.getName());
+        assertThat(result.get(0).getName(), isOneOf("Bug with description"));
     }
 
     @Test
     public void whenDelete() {
         Tracker tracker = new Tracker();
-        Item bug = new Item();
+        Item bug = new Item("Bug");
         bug.setName("Bug");
         tracker.add(bug);
         int id = bug.getId();
