@@ -15,10 +15,12 @@ public class Account {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null || getClass() != obj.getClass())
+        }
+        if (obj == null || getClass() != obj.getClass()) {
             return false;
+        }
         Account account = (Account)obj;
         return Objects.equals(passport, account.passport);
     }
