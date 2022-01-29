@@ -42,5 +42,10 @@ public class StreamUsage {
                 task -> task.spent
         ).reduce(0L, Long::sum);
         System.out.println(total);
+
+        List<Task> list = tasks.stream()
+                .filter(task -> task.name.contains("Bug") && task.spent > 30)
+                .collect(Collectors.toList());
+        list.forEach(System.out::println);
     }
 }
