@@ -33,8 +33,13 @@ public class Address {
                 && Objects.equals(street, address.street);
     }
 
+    public String getCity() {
+        return city;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(city, street, home, appartment);
     }
+
 }
