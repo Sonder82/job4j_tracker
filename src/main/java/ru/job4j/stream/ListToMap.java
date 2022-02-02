@@ -11,8 +11,7 @@ public class ListToMap {
                 .collect(Collectors.toMap(
                         Student::getSurname,
                         student -> student,
-                        (oldKey, newKey) -> oldKey,
-                        LinkedHashMap::new
+                        (oldKey, newKey) -> oldKey
                 ));
     }
 }
