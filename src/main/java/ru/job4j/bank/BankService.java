@@ -1,9 +1,6 @@
 package ru.job4j.bank;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Класс описывает работу банковского сервиса
@@ -21,6 +18,7 @@ public class BankService {
      * Метод принимает один параметр: пользователя.
      * Метод проверяет есть ли пользователь в системе.
      * Если пользователя нет в системе, то он добавляет его
+     *
      * @param user - пользователь.
      */
     public void addUser(User user) {
@@ -31,13 +29,14 @@ public class BankService {
      * Метод добавляет новый счет к пользователю.
      * Первоначально нужно найте пользователя по паспорту {@link #findByPassport(String)}
      * Если клиент найден, то получаем список всех его счетов и добавляем новый.
+     *
      * @param passport - данные паспорта
-     * @param account - список счетов
+     * @param account  - список счетов
      */
     public void addAccount(String passport, Account account) {
-        User client = findByPassport(passport);
-        if (client != null) {
-            List<Account> rsl = users.get(client);
+        Optional<User> client = findByPassport(passport);
+        if (client.isPresent()) {
+            List<Account> rsl = users.get(client.get());
             if (!rsl.contains(account)) {
                 rsl.add(account);
             }
@@ -46,17 +45,19 @@ public class BankService {
 
     /**
      * Метод ищет пользователя по номеру паспорта
+     *
      * @param passport - номер паспорта
      * @return возвращает пользователя по номеру паспорта, если пользователь не найден возвращает null.
      */
-    public User findByPassport(String passport) {
-        return users.keySet()
+    public Optional<User> findByPassport(String passport) {
+                return users.keySet()
                 .stream()
                 .filter(user -> user.getPassport().equals(passport))
-                .findFirst()
-                .orElse(null);
+                .findFirst();
 
     }
+
+
 
     /**
      * Метод ищет счет пользователя через номер реквизита
@@ -66,16 +67,16 @@ public class BankService {
      * @param requisite - данные реквизитов
      * @return - возвращает счет пользователя
      */
-    public Account findByRequisite(String passport, String requisite) {
-        User client = findByPassport(passport);
-        if (client != null) {
-            return users.get(client)
+    public Optional<Account> findByRequisite(String passport, String requisite) {
+        Optional<Account> rsl = Optional.empty();
+        Optional<User> client = findByPassport(passport);
+        if (client.isPresent()) {
+            return users.get(client.get())
                     .stream()
                     .filter(account -> account.getRequisite().equals(requisite))
-                    .findFirst()
-                    .orElse(null);
+                    .findFirst();
         }
-        return null;
+        return rsl;
     }
 
     /**
@@ -91,11 +92,11 @@ public class BankService {
     public boolean transferMoney(String srcPassport, String srcRequisite,
                                  String destPassport, String destRequisite, double amount) {
         boolean rsl = false;
-        Account srcAccount = findByRequisite(srcPassport, srcRequisite);
-        Account destAccount = findByRequisite(destPassport, destRequisite);
-        if (srcAccount != null && destAccount != null && srcAccount.getBalance() >= amount) {
-            destAccount.setBalance(destAccount.getBalance() + amount);
-            srcAccount.setBalance(srcAccount.getBalance() - amount);
+        Optional<Account> srcAccount = findByRequisite(srcPassport, srcRequisite);
+        Optional<Account> destAccount = findByRequisite(destPassport, destRequisite);
+        if (srcAccount.isPresent() && destAccount.isPresent() && srcAccount.get().getBalance() >= amount) {
+            destAccount.get().setBalance(destAccount.get().getBalance() + amount);
+            srcAccount.get().setBalance(srcAccount.get().getBalance() - amount);
             rsl = true;
         }
         return rsl;
