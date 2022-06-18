@@ -7,9 +7,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-public class SqlTracker implements Store, AutoCloseable{
+public class SqlTracker implements Store, AutoCloseable {
 
     private Connection connection;
+
+    public SqlTracker() {
+
+    }
+
+    public SqlTracker(Connection connection) {
+        this.connection = connection;
+    }
 
     public void init() {
         try (InputStream in = SqlTracker.class.getClassLoader().getResourceAsStream("app.properties")) {
@@ -36,7 +44,7 @@ public class SqlTracker implements Store, AutoCloseable{
     @Override
     public Item add(Item item) {
         try (PreparedStatement statement =
-                     connection.prepareStatement("insert into(name, created) values (?, ?)",
+                     connection.prepareStatement("insert into items(name, created) values (?, ?)",
                              Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, item.getName());
             statement.setTimestamp(2, Timestamp.valueOf(item.getCreated()));
