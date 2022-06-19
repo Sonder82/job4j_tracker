@@ -7,12 +7,13 @@ public class StubOutput implements Output {
     public void println(Object obj) {
         if (obj != null) {
             buffer.append(obj.toString());
-        }else {
+        } else {
             buffer.append("null");
         }
         buffer.append(System.lineSeparator());
 
     }
+
     @Override
     public String toString() {
         return buffer.toString();

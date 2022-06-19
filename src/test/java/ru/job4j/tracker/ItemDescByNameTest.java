@@ -23,6 +23,6 @@ public class ItemDescByNameTest {
                 new Item("Oleg"),
                 new Item("Ivan")
         );
-        assertEquals(expected,items);
+        assertEquals(expected, items);
     }
 }

@@ -47,7 +47,8 @@ public class BankService {
      * Метод ищет пользователя по номеру паспорта
      *
      * @param passport - номер паспорта
-     * @return возвращает пользователя по номеру паспорта, если пользователь не найден возвращает null.
+     * @return возвращает пользователя по номеру паспорта,
+     * если пользователь не найден возвращает null.
      */
     public Optional<User> findByPassport(String passport) {
                 return users.keySet()
@@ -56,8 +57,6 @@ public class BankService {
                 .findFirst();
 
     }
-
-
 
     /**
      * Метод ищет счет пользователя через номер реквизита
@@ -94,7 +93,8 @@ public class BankService {
         boolean rsl = false;
         Optional<Account> srcAccount = findByRequisite(srcPassport, srcRequisite);
         Optional<Account> destAccount = findByRequisite(destPassport, destRequisite);
-        if (srcAccount.isPresent() && destAccount.isPresent() && srcAccount.get().getBalance() >= amount) {
+        if (srcAccount.isPresent() && destAccount.isPresent()
+                && srcAccount.get().getBalance() >= amount) {
             destAccount.get().setBalance(destAccount.get().getBalance() + amount);
             srcAccount.get().setBalance(srcAccount.get().getBalance() - amount);
             rsl = true;

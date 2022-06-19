@@ -21,7 +21,7 @@ public class Account {
         if (obj == null || getClass() != obj.getClass()) {
             return false;
         }
-        Account account = (Account)obj;
+        Account account = (Account) obj;
         return Objects.equals(passport, account.passport);
     }
 
@@ -32,10 +32,10 @@ public class Account {
 
     @Override
     public String toString() {
-        return "Account{" +
-                "passport='" + passport + '\'' +
-                ", username='" + username + '\'' +
-                ", deposit='" + deposit + '\'' +
-                '}';
+        return "Account{"
+                + "passport='" + passport + '\''
+                + ", username='" + username + '\''
+                + ", deposit='" + deposit + '\''
+                + '}';
     }
 }

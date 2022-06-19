@@ -18,91 +18,92 @@ public class JobTest {
     public void whenComparatorAskByName() {
         List<Job> jobs = Arrays.asList(
                 new Job("Doctor", 1),
-                new Job("Manager",3),
-                new Job("Driver",2),
-                new Job("Builder",4)
+                new Job("Manager", 3),
+                new Job("Driver", 2),
+                new Job("Builder", 4)
         );
         Collections.sort(jobs, new JobAskByName());
         List<Job> expected = Arrays.asList(
-                new Job("Builder",4),
+                new Job("Builder", 4),
                 new Job("Doctor", 1),
                 new Job("Driver", 2),
                 new Job("Manager", 3)
         );
-        assertThat(jobs,is(expected));
+        assertThat(jobs, is(expected));
     }
 
     @Test
     public void whenComparatorDescByName() {
         List<Job> jobs = Arrays.asList(
                 new Job("Doctor", 1),
-                new Job("Manager",3),
-                new Job("Driver",2),
-                new Job("Builder",4)
+                new Job("Manager", 3),
+                new Job("Driver", 2),
+                new Job("Builder", 4)
         );
         Collections.sort(jobs, new JobDescByName());
         List<Job> expected = Arrays.asList(
                 new Job("Manager", 3),
                 new Job("Driver", 2),
                 new Job("Doctor", 1),
-                new Job("Builder",4)
+                new Job("Builder", 4)
         );
-        assertThat(jobs,is(expected));
+        assertThat(jobs, is(expected));
     }
 
     @Test
     public void whenComparatorAskByPriority() {
         List<Job> jobs = Arrays.asList(
                 new Job("Doctor", 1),
-                new Job("Manager",3),
-                new Job("Driver",2),
-                new Job("Builder",4)
+                new Job("Manager", 3),
+                new Job("Driver", 2),
+                new Job("Builder", 4)
         );
         Collections.sort(jobs, new JobAskByPriority());
         List<Job> expected = Arrays.asList(
                 new Job("Doctor", 1),
                 new Job("Driver", 2),
                 new Job("Manager", 3),
-                new Job("Builder",4)
+                new Job("Builder", 4)
         );
-        assertThat(jobs,is(expected));
+        assertThat(jobs, is(expected));
     }
 
     @Test
     public void whenComparatorDescByPriority() {
         List<Job> jobs = Arrays.asList(
                 new Job("Doctor", 1),
-                new Job("Manager",3),
-                new Job("Driver",2),
-                new Job("Builder",4)
+                new Job("Manager", 3),
+                new Job("Driver", 2),
+                new Job("Builder", 4)
         );
         Collections.sort(jobs, new JobDescByPriority());
         List<Job> expected = Arrays.asList(
-                new Job("Builder",4),
+                new Job("Builder", 4),
                 new Job("Manager", 3),
                 new Job("Driver", 2),
                 new Job("Doctor", 1)
 
         );
-        assertThat(jobs,is(expected));
+        assertThat(jobs, is(expected));
     }
+
     @Test
     public void whenComparatorByNameAndPriority() {
-        Comparator<Job> cmpNamePriority = new JobDescByName().thenComparing(new JobDescByPriority());
+        Comparator<Job> cmpNamePriority = new JobDescByName().thenComparing(
+                new JobDescByPriority());
         int rsl = cmpNamePriority.compare(
                 new Job("Doctor", 1),
-                new Job( "Buildrer", 3)
+                new Job("Buildrer", 3)
         );
         assertThat(rsl, lessThan(0));
     }
-
 
     @Test
     public void whenComparatorByNameAndPriorityThree() {
         Comparator<Job> cmpNamePriority = new JobAskByName().thenComparing(new JobAskByPriority());
         int rsl = cmpNamePriority.compare(
                 new Job("Doctor", 10),
-                new Job( "Doctor", 3)
+                new Job("Doctor", 3)
         );
         assertThat(rsl, greaterThan(0));
     }
@@ -112,7 +113,7 @@ public class JobTest {
         Comparator<Job> cmpNamePriority = new JobAskByName().thenComparing(new JobAskByPriority());
         int rsl = cmpNamePriority.compare(
                 new Job("Builder", 10),
-                new Job( "Doctor", 3)
+                new Job("Doctor", 3)
         );
         assertThat(rsl, lessThan(0));
     }

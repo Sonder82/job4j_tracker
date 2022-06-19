@@ -18,7 +18,6 @@ public class User implements Comparable<User> {
             return result != 0 ? result : Integer.compare(age, user.age);
         }
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {

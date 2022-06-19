@@ -31,14 +31,14 @@ public class Analyze {
         Map<String, Double> map = stream
                 .flatMap(pupil -> pupil.getSubjects().stream())
                 .collect(Collectors.groupingBy(
-                        Subject::getName, LinkedHashMap::new, Collectors.averagingDouble(Subject::getScore))
+                        Subject::getName, LinkedHashMap::new, Collectors.averagingDouble(
+                                Subject::getScore))
                 );
         return map.entrySet()
                 .stream()
-                .map(stringDoubleEntry -> new Tuple(stringDoubleEntry.getKey(), stringDoubleEntry.getValue()))
+                .map(stringDoubleEntry -> new Tuple(
+                        stringDoubleEntry.getKey(), stringDoubleEntry.getValue()))
                 .collect(Collectors.toList());
-
-
     }
 
     public static Tuple bestStudent(Stream<Pupil> stream) {
@@ -48,8 +48,6 @@ public class Analyze {
                         .sum()))
                 .max(Comparator.comparing(Tuple::getScore))
                 .orElse(null);
-
-
     }
 
     public static Tuple bestSubject(Stream<Pupil> stream) {
@@ -60,7 +58,8 @@ public class Analyze {
                 );
         return map.entrySet()
                 .stream()
-                .map(stringDoubleEntry -> new Tuple(stringDoubleEntry.getKey(), stringDoubleEntry.getValue()))
+                .map(stringDoubleEntry -> new Tuple(
+                        stringDoubleEntry.getKey(), stringDoubleEntry.getValue()))
                 .max(Comparator.comparing(Tuple::getScore))
                 .orElse(null);
     }

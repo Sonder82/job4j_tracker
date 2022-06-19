@@ -7,19 +7,22 @@ public class Calculator {
     public static int sum(int y) {
         return x + y;
     }
+
     public int multiply(int a) {
         return x * a;
     }
-    public static int minus (int a) {
+
+    public static int minus(int a) {
         return x - a;
     }
-    public int divide (int a) {
+
+    public int divide(int a) {
         return x / a;
     }
+
     public int sumAllOperation(int a) {
         return sum(10) + multiply(5) + minus(4) + divide(5);
     }
-
 
     public static void main(String[] args) {
         Calculator calculator = new Calculator();

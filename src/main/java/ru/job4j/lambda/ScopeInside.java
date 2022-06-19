@@ -7,7 +7,7 @@ public class ScopeInside {
         int[] number = {1, 2, 3};
         int total = 0;
         for (int i : number) {
-            int temp = total ;
+            int temp = total;
             total = add(
                     () -> temp + i
             );

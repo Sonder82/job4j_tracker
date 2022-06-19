@@ -20,7 +20,8 @@ public class SqlTracker implements Store, AutoCloseable {
     }
 
     public void init() {
-        try (InputStream in = SqlTracker.class.getClassLoader().getResourceAsStream("app.properties")) {
+        try (InputStream in = SqlTracker.class.getClassLoader().getResourceAsStream(
+                "app.properties")) {
             Properties config = new Properties();
             config.load(in);
             Class.forName(config.getProperty("driver-class-name"));
@@ -33,6 +34,7 @@ public class SqlTracker implements Store, AutoCloseable {
             throw new IllegalStateException(e);
         }
     }
+
     @Override
     public void close() throws Exception {
         if (connection != null) {
@@ -64,7 +66,8 @@ public class SqlTracker implements Store, AutoCloseable {
     @Override
     public boolean replace(int id, Item item) {
         boolean result = false;
-        try (PreparedStatement statement = connection.prepareStatement("update items set name = ?, created = ? where id = ?")) {
+        try (PreparedStatement statement = connection.prepareStatement(
+                "update items set name = ?, created = ? where id = ?")) {
             statement.setString(1, item.getName());
             statement.setTimestamp(2, Timestamp.valueOf(item.getCreated()));
             statement.setInt(3, id);
@@ -107,7 +110,8 @@ public class SqlTracker implements Store, AutoCloseable {
     @Override
     public List<Item> findByName(String key) {
         List<Item> itemList = new ArrayList<>();
-        try (PreparedStatement statement = connection.prepareStatement("select from items where name = ?")) {
+        try (PreparedStatement statement = connection.prepareStatement(
+                "select from items where name = ?")) {
             statement.setString(1, key);
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {

@@ -27,7 +27,7 @@ public class Citizen {
         if (obj == null || getClass() != obj.getClass()) {
             return false;
         }
-        Citizen citizen = (Citizen)obj;
+        Citizen citizen = (Citizen) obj;
         return Objects.equals(passport, citizen.passport);
     }
 

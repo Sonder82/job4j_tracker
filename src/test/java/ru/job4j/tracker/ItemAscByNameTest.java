@@ -23,6 +23,6 @@ public class ItemAscByNameTest {
                 new Item("Oleg"),
                 new Item("Viktor")
         );
-        assertEquals(expected,items);
+        assertEquals(expected, items);
     }
 }
