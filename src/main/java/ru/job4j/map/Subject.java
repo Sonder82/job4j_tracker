@@ -37,3 +37,4 @@ public class Subject {
         return Objects.hash(name);
     }
 }
+
