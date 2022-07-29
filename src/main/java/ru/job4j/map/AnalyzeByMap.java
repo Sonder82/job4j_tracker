@@ -3,6 +3,7 @@ package ru.job4j.map;
 import java.util.*;
 
 public class AnalyzeByMap {
+
     public static double averageScore(List<Pupil> pupils) {
         double sum = 0;
         int countSubject = 0;
@@ -36,18 +37,12 @@ public class AnalyzeByMap {
     public static List<Label> averageScoreBySubject(List<Pupil> pupils) {
         int countPupil = pupils.size();
         List<Label> scoreBySubject = new ArrayList<>();
-        HashMap<String, Integer> map = new LinkedHashMap<>();
-        for (Pupil pupil : pupils) {
-            List<Subject> subjects = pupil.getSubjects();
-            for (Subject subject : subjects) {
-                map.merge(subject.getName(), subject.getScore(), Integer::sum);
-            }
+        HashMap<String, Integer> map = collectToMap(pupils);
+        for (Map.Entry<String, Integer> entry : map.entrySet()) {
+            String key = entry.getKey();
+            Integer score = entry.getValue();
+            scoreBySubject.add(new Label(key, score / countPupil));
         }
-            for (Map.Entry<String, Integer> entry : map.entrySet()) {
-                String key = entry.getKey();
-                Integer score = entry.getValue();
-                scoreBySubject.add(new Label(key, score / countPupil));
-            }
         return scoreBySubject;
     }
 
@@ -69,13 +64,7 @@ public class AnalyzeByMap {
 
     public static Label bestSubject(List<Pupil> pupils) {
         List<Label> scoreBySubject = new ArrayList<>();
-        HashMap<String, Integer> map = new LinkedHashMap<>();
-        for (Pupil pupil : pupils) {
-            List<Subject> subjects = pupil.getSubjects();
-            for (Subject subject : subjects) {
-                map.merge(subject.getName(), subject.getScore(), Integer::sum);
-            }
-        }
+        HashMap<String, Integer> map = collectToMap(pupils);
         for (Map.Entry<String, Integer> entry : map.entrySet()) {
             String key = entry.getKey();
             Integer score = entry.getValue();
@@ -83,5 +72,16 @@ public class AnalyzeByMap {
         }
         scoreBySubject.sort(Comparator.naturalOrder());
         return scoreBySubject.get(scoreBySubject.size() - 1);
+    }
+
+    private static HashMap<String, Integer> collectToMap(List<Pupil> pupils) {
+        HashMap<String, Integer> map = new LinkedHashMap<>();
+        for (Pupil pupil : pupils) {
+            List<Subject> subjects = pupil.getSubjects();
+            for (Subject subject : subjects) {
+                map.merge(subject.getName(), subject.getScore(), Integer::sum);
+            }
+        }
+        return map;
     }
 }
