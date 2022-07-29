@@ -43,10 +43,10 @@ public class AnalyzeByMap {
                 map.merge(subject.getName(), subject.getScore(), Integer::sum);
             }
         }
-            for(Map.Entry<String, Integer> entry : map.entrySet()) {
+            for (Map.Entry<String, Integer> entry : map.entrySet()) {
                 String key = entry.getKey();
                 Integer score = entry.getValue();
-                scoreBySubject.add(new Label(key,score / countPupil));
+                scoreBySubject.add(new Label(key, score / countPupil));
             }
         return scoreBySubject;
     }
@@ -76,7 +76,7 @@ public class AnalyzeByMap {
                 map.merge(subject.getName(), subject.getScore(), Integer::sum);
             }
         }
-        for(Map.Entry<String, Integer> entry : map.entrySet()) {
+        for (Map.Entry<String, Integer> entry : map.entrySet()) {
             String key = entry.getKey();
             Integer score = entry.getValue();
             scoreBySubject.add(new Label(key, score));
