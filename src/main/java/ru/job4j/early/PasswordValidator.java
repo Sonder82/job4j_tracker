@@ -35,7 +35,7 @@ public class PasswordValidator {
         }
     }
 
-    private static boolean checkMatches (String str) {
+    private static boolean checkMatches(String str) {
         boolean result = false;
         String[] matches = new String[] {"qwerty", "12345", "password", "admin", "user"};
         for (String s : matches) {

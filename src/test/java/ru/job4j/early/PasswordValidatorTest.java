@@ -53,6 +53,7 @@ class PasswordValidatorTest {
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("Special");
     }
+
     @Test
     void checkAtMultiple() {
         PasswordValidator pv = new PasswordValidator();
