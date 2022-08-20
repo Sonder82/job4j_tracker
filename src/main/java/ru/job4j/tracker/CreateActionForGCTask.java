@@ -1,6 +1,6 @@
 package ru.job4j.tracker;
 
-public class CreateActionForGCTask implements UserAction{
+public class CreateActionForGCTask implements UserAction {
     private final Output out;
 
     public CreateActionForGCTask(Output out) {
