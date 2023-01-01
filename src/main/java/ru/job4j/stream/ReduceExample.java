@@ -1,10 +1,9 @@
 package ru.job4j.stream;
 
-import ru.job4j.stream.mapTo.Person;
+import ru.job4j.stream.mapto.Person;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 public class ReduceExample {
     public static void main(String[] args) {
