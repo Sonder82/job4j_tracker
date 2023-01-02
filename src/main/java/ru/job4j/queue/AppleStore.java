@@ -23,9 +23,7 @@ public class AppleStore {
      * @return имя клиента из очереди.
      */
     public String getLastHappyCustomer() {
-        if (queue.isEmpty()) {
-            System.out.println("Queue is empty");
-        }
+
         String result = "";
         for (int i = 0; i < count; i++) {
              result = queue.poll().name();
@@ -38,9 +36,7 @@ public class AppleStore {
      * @return имя клиента из очереди.
      */
     public String getLastUpsetCustomer() {
-        if (queue.isEmpty()) {
-            System.out.println("Queue is empty");
-        }
+
         String result = "";
         for (int i = 0; i < count + 1; i++) {
             result = queue.poll().name();
