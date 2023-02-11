@@ -20,9 +20,9 @@ public class ReplaceAction implements UserAction {
         Item item = new Item(name);
         store.replace(id, item);
         if (store.replace(id, item)) {
-            out.println("Заявка изменена успешно.");
+            out.println("Edit item is done.");
         } else {
-            out.println("Ошибка замены заявки.");
+            out.println("Item with id=%s not found.");
         }
         return true;
     }
