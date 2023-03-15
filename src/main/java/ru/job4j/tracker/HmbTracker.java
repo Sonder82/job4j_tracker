@@ -35,7 +35,10 @@ public class HmbTracker implements Store, AutoCloseable {
             session.save(item);
             session.getTransaction().commit();
         } catch (Exception e) {
-            session.getTransaction().rollback();
+            if (session != null) {
+                session.getTransaction().rollback();
+                throw e;
+            }
         } finally {
             session.close();
         }
@@ -56,7 +59,10 @@ public class HmbTracker implements Store, AutoCloseable {
                     result = query.executeUpdate() > 0;
             session.getTransaction().commit();
         } catch (Exception e) {
-            session.getTransaction().rollback();
+            if (session != null) {
+                session.getTransaction().rollback();
+                throw e;
+            }
         } finally {
             session.close();
         }
@@ -75,7 +81,10 @@ public class HmbTracker implements Store, AutoCloseable {
             result = query.executeUpdate() > 0;
             session.getTransaction().commit();
         } catch (Exception e) {
-            session.getTransaction().rollback();
+            if (session != null) {
+                session.getTransaction().rollback();
+                throw e;
+            }
         } finally {
             session.close();
         }
@@ -93,7 +102,10 @@ public class HmbTracker implements Store, AutoCloseable {
             itemList = query.list();
             session.getTransaction().commit();
         } catch (Exception e) {
-            session.getTransaction().rollback();
+            if (session != null) {
+                session.getTransaction().rollback();
+                throw e;
+            }
         } finally {
             session.close();
         }
@@ -112,7 +124,10 @@ public class HmbTracker implements Store, AutoCloseable {
             itemList = query.list();
             session.getTransaction().commit();
         } catch (Exception e) {
-            session.getTransaction().rollback();
+            if (session != null) {
+                session.getTransaction().rollback();
+                throw e;
+            }
         } finally {
             session.close();
         }
@@ -131,7 +146,10 @@ public class HmbTracker implements Store, AutoCloseable {
             item = query.uniqueResult();
             session.getTransaction().commit();
         } catch (Exception e) {
-            session.getTransaction().rollback();
+            if (session != null) {
+                session.getTransaction().rollback();
+                throw e;
+            }
         } finally {
             session.close();
         }
