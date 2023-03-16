@@ -2,6 +2,7 @@ package ru.job4j.tracker;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -30,13 +31,14 @@ public class HmbTracker implements Store, AutoCloseable {
     @Override
     public Item add(Item item) {
         Session session = sf.openSession();
+        Transaction tr = null;
         try {
-            session.beginTransaction();
+            tr = session.beginTransaction();
             session.save(item);
             session.getTransaction().commit();
         } catch (Exception e) {
-            if (session != null) {
-                session.getTransaction().rollback();
+            if (tr != null) {
+                tr.rollback();
                 throw e;
             }
         } finally {
@@ -49,8 +51,9 @@ public class HmbTracker implements Store, AutoCloseable {
     public boolean replace(int id, Item item) {
         boolean result = false;
         Session session = sf.openSession();
+        Transaction tr = null;
         try {
-            session.beginTransaction();
+            tr = session.beginTransaction();
             var query = session.createQuery(
                             "UPDATE Item SET name = :fName, created = :fCreated WHERE id = :fId");
                     query.setParameter("fName", item.getName());
@@ -59,8 +62,8 @@ public class HmbTracker implements Store, AutoCloseable {
                     result = query.executeUpdate() > 0;
             session.getTransaction().commit();
         } catch (Exception e) {
-            if (session != null) {
-                session.getTransaction().rollback();
+            if (tr != null) {
+                tr.rollback();
                 throw e;
             }
         } finally {
@@ -73,16 +76,17 @@ public class HmbTracker implements Store, AutoCloseable {
     public boolean delete(int id) {
         boolean result = false;
         Session session = sf.openSession();
+        Transaction tr = null;
         try {
-            session.beginTransaction();
+            tr = session.beginTransaction();
             var query = session.createQuery(
                     "DELETE Item WHERE id = :fId");
             query.setParameter("fId", id);
             result = query.executeUpdate() > 0;
             session.getTransaction().commit();
         } catch (Exception e) {
-            if (session != null) {
-                session.getTransaction().rollback();
+            if (tr != null) {
+                tr.rollback();
                 throw e;
             }
         } finally {
@@ -95,15 +99,16 @@ public class HmbTracker implements Store, AutoCloseable {
     public List<Item> findAll() {
         Session session = sf.openSession();
         List<Item> itemList = new ArrayList<>();
+        Transaction tr = null;
         try {
-            session.beginTransaction();
+            tr = session.beginTransaction();
             Query<Item> query = session.createQuery(
                     "FROM Item ORDER BY id", Item.class);
             itemList = query.list();
             session.getTransaction().commit();
         } catch (Exception e) {
-            if (session != null) {
-                session.getTransaction().rollback();
+            if (tr != null) {
+                tr.rollback();
                 throw e;
             }
         } finally {
@@ -116,16 +121,17 @@ public class HmbTracker implements Store, AutoCloseable {
     public List<Item> findByName(String key) {
         Session session = sf.openSession();
         List<Item> itemList = new ArrayList<>();
+        Transaction tr = null;
         try {
-            session.beginTransaction();
+            tr = session.beginTransaction();
             Query<Item> query = session.createQuery(
                     "FROM Item WHERE name = :fName", Item.class);
             query.setParameter("fName", key);
             itemList = query.list();
             session.getTransaction().commit();
         } catch (Exception e) {
-            if (session != null) {
-                session.getTransaction().rollback();
+            if (tr != null) {
+                tr.rollback();
                 throw e;
             }
         } finally {
@@ -138,16 +144,17 @@ public class HmbTracker implements Store, AutoCloseable {
     public Item findById(int id) {
         Session session = sf.openSession();
         var item = new Item();
+        Transaction tr = null;
         try {
-            session.beginTransaction();
+            tr = session.beginTransaction();
             var query = session.createQuery(
                     "FROM Item WHERE id = :fId", Item.class);
             query.setParameter("fId", id);
             item = query.uniqueResult();
             session.getTransaction().commit();
         } catch (Exception e) {
-            if (session != null) {
-                session.getTransaction().rollback();
+            if (tr != null) {
+                tr.rollback();
                 throw e;
             }
         } finally {
