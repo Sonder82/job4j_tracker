@@ -39,8 +39,8 @@ public class HmbTracker implements Store, AutoCloseable {
         } catch (Exception e) {
             if (tr != null) {
                 tr.rollback();
-                throw e;
             }
+            throw e;
         } finally {
             session.close();
         }
@@ -64,8 +64,8 @@ public class HmbTracker implements Store, AutoCloseable {
         } catch (Exception e) {
             if (tr != null) {
                 tr.rollback();
-                throw e;
             }
+            throw e;
         } finally {
             session.close();
         }
@@ -87,8 +87,8 @@ public class HmbTracker implements Store, AutoCloseable {
         } catch (Exception e) {
             if (tr != null) {
                 tr.rollback();
-                throw e;
             }
+            throw e;
         } finally {
             session.close();
         }
@@ -109,8 +109,8 @@ public class HmbTracker implements Store, AutoCloseable {
         } catch (Exception e) {
             if (tr != null) {
                 tr.rollback();
-                throw e;
             }
+            throw e;
         } finally {
             session.close();
         }
@@ -132,8 +132,8 @@ public class HmbTracker implements Store, AutoCloseable {
         } catch (Exception e) {
             if (tr != null) {
                 tr.rollback();
-                throw e;
             }
+            throw e;
         } finally {
             session.close();
         }
@@ -155,8 +155,8 @@ public class HmbTracker implements Store, AutoCloseable {
         } catch (Exception e) {
             if (tr != null) {
                 tr.rollback();
-                throw e;
             }
+            throw e;
         } finally {
             session.close();
         }
